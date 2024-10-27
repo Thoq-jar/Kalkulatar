@@ -57,11 +57,15 @@ pub fn main() !void {
     defer _ = gpa.deinit();
 
     const font_paths = [_][]const u8{
-        "/usr/share/fonts/noto/NotoSans-Regular.ttf", // Linux
-        "/usr/share/fonts/liberation/LiberationSans-Regular.ttf", // Linux
-        "/usr/share/fonts/TTF/DejaVuSans.ttf", // Linux
-        "/System/Library/Fonts/Helvetica.ttf",  // macOS
-        "C:\\Windows\\Fonts\\arial.ttf",        // Windows
+        "/Library/Fonts/SF-Pro.ttf", // macOS
+        "/Library/Fonts/SF-Pro-Italic.ttf", // macOS
+        "/Library/Fonts/SourceCodePro-Regular.ttf", // macOS
+        "/Library/Fonts/SourceCodePro-Bold.ttf", // macOS
+        "/Library/Fonts/SourceCodePro-Italic.ttf", // macOS
+        "/System/Library/Fonts/SFNS.ttf", // macOS
+        "/System/Library/Fonts/SFNSItalic.ttf",
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", // Linux
+        "C:\\Windows\\Fonts\\arial.ttf", // Windows
     };
 
     var font_path: ?[]const u8 = null;
@@ -117,112 +121,27 @@ pub fn main() !void {
     defer c.TTF_CloseFont(font);
 
     const buttons = [_]Button{
-        .{ .rect = .{ 
-            .x = MARGIN, 
-            .y = 150, 
-            .w = BUTTON_SIZE, 
-            .h = BUTTON_SIZE 
-        }, .text = "7", .btn_type = .number },
-        .{ .rect = .{ 
-            .x = MARGIN + BUTTON_SIZE + PADDING, 
-            .y = 150, 
-            .w = BUTTON_SIZE, 
-            .h = BUTTON_SIZE 
-        }, .text = "8", .btn_type = .number },
-        .{ .rect = .{ 
-            .x = MARGIN + (BUTTON_SIZE + PADDING) * 2, 
-            .y = 150, 
-            .w = BUTTON_SIZE, 
-            .h = BUTTON_SIZE 
-        }, .text = "9", .btn_type = .number },
-        .{ .rect = .{ 
-            .x = MARGIN + (BUTTON_SIZE + PADDING) * 3, 
-            .y = 150, 
-            .w = BUTTON_SIZE, 
-            .h = BUTTON_SIZE 
-        }, .text = "/", .btn_type = .operator },
+        .{ .rect = .{ .x = MARGIN, .y = 150, .w = BUTTON_SIZE, .h = BUTTON_SIZE }, .text = "7", .btn_type = .number },
+        .{ .rect = .{ .x = MARGIN + BUTTON_SIZE + PADDING, .y = 150, .w = BUTTON_SIZE, .h = BUTTON_SIZE }, .text = "8", .btn_type = .number },
+        .{ .rect = .{ .x = MARGIN + (BUTTON_SIZE + PADDING) * 2, .y = 150, .w = BUTTON_SIZE, .h = BUTTON_SIZE }, .text = "9", .btn_type = .number },
+        .{ .rect = .{ .x = MARGIN + (BUTTON_SIZE + PADDING) * 3, .y = 150, .w = BUTTON_SIZE, .h = BUTTON_SIZE }, .text = "/", .btn_type = .operator },
 
-        .{ .rect = .{ 
-            .x = MARGIN, 
-            .y = 150 + BUTTON_SIZE + PADDING, 
-            .w = BUTTON_SIZE, 
-            .h = BUTTON_SIZE 
-        }, .text = "4", .btn_type = .number },
-        .{ .rect = .{ 
-            .x = MARGIN + BUTTON_SIZE + PADDING, 
-            .y = 150 + BUTTON_SIZE + PADDING, 
-            .w = BUTTON_SIZE, 
-            .h = BUTTON_SIZE 
-        }, .text = "5", .btn_type = .number },
-        .{ .rect = .{ 
-            .x = MARGIN + (BUTTON_SIZE + PADDING) * 2, 
-            .y = 150 + BUTTON_SIZE + PADDING, 
-            .w = BUTTON_SIZE, 
-            .h = BUTTON_SIZE 
-        }, .text = "6", .btn_type = .number },
-        .{ .rect = .{ 
-            .x = MARGIN + (BUTTON_SIZE + PADDING) * 3, 
-            .y = 150 + BUTTON_SIZE + PADDING, 
-            .w = BUTTON_SIZE, 
-            .h = BUTTON_SIZE 
-        }, .text = "*", .btn_type = .operator },
+        .{ .rect = .{ .x = MARGIN, .y = 150 + BUTTON_SIZE + PADDING, .w = BUTTON_SIZE, .h = BUTTON_SIZE }, .text = "4", .btn_type = .number },
+        .{ .rect = .{ .x = MARGIN + BUTTON_SIZE + PADDING, .y = 150 + BUTTON_SIZE + PADDING, .w = BUTTON_SIZE, .h = BUTTON_SIZE }, .text = "5", .btn_type = .number },
+        .{ .rect = .{ .x = MARGIN + (BUTTON_SIZE + PADDING) * 2, .y = 150 + BUTTON_SIZE + PADDING, .w = BUTTON_SIZE, .h = BUTTON_SIZE }, .text = "6", .btn_type = .number },
+        .{ .rect = .{ .x = MARGIN + (BUTTON_SIZE + PADDING) * 3, .y = 150 + BUTTON_SIZE + PADDING, .w = BUTTON_SIZE, .h = BUTTON_SIZE }, .text = "*", .btn_type = .operator },
 
-        .{ .rect = .{ 
-            .x = MARGIN, 
-            .y = 150 + (BUTTON_SIZE + PADDING) * 2, 
-            .w = BUTTON_SIZE, 
-            .h = BUTTON_SIZE 
-        }, .text = "1", .btn_type = .number },
-        .{ .rect = .{ 
-            .x = MARGIN + BUTTON_SIZE + PADDING, 
-            .y = 150 + (BUTTON_SIZE + PADDING) * 2, 
-            .w = BUTTON_SIZE, 
-            .h = BUTTON_SIZE 
-        }, .text = "2", .btn_type = .number },
-        .{ .rect = .{ 
-            .x = MARGIN + (BUTTON_SIZE + PADDING) * 2, 
-            .y = 150 + (BUTTON_SIZE + PADDING) * 2, 
-            .w = BUTTON_SIZE, 
-            .h = BUTTON_SIZE 
-        }, .text = "3", .btn_type = .number },
-        .{ .rect = .{ 
-            .x = MARGIN + (BUTTON_SIZE + PADDING) * 3, 
-            .y = 150 + (BUTTON_SIZE + PADDING) * 2, 
-            .w = BUTTON_SIZE, 
-            .h = BUTTON_SIZE 
-        }, .text = "-", .btn_type = .operator },
+        .{ .rect = .{ .x = MARGIN, .y = 150 + (BUTTON_SIZE + PADDING) * 2, .w = BUTTON_SIZE, .h = BUTTON_SIZE }, .text = "1", .btn_type = .number },
+        .{ .rect = .{ .x = MARGIN + BUTTON_SIZE + PADDING, .y = 150 + (BUTTON_SIZE + PADDING) * 2, .w = BUTTON_SIZE, .h = BUTTON_SIZE }, .text = "2", .btn_type = .number },
+        .{ .rect = .{ .x = MARGIN + (BUTTON_SIZE + PADDING) * 2, .y = 150 + (BUTTON_SIZE + PADDING) * 2, .w = BUTTON_SIZE, .h = BUTTON_SIZE }, .text = "3", .btn_type = .number },
+        .{ .rect = .{ .x = MARGIN + (BUTTON_SIZE + PADDING) * 3, .y = 150 + (BUTTON_SIZE + PADDING) * 2, .w = BUTTON_SIZE, .h = BUTTON_SIZE }, .text = "-", .btn_type = .operator },
 
-        .{ .rect = .{ 
-            .x = MARGIN, 
-            .y = 150 + (BUTTON_SIZE + PADDING) * 3, 
-            .w = BUTTON_SIZE, 
-            .h = BUTTON_SIZE 
-        }, .text = "0", .btn_type = .number },
-        .{ .rect = .{ 
-            .x = MARGIN + BUTTON_SIZE + PADDING, 
-            .y = 150 + (BUTTON_SIZE + PADDING) * 3, 
-            .w = BUTTON_SIZE, 
-            .h = BUTTON_SIZE 
-        }, .text = "C", .btn_type = .operator },
-        .{ .rect = .{ 
-            .x = MARGIN + (BUTTON_SIZE + PADDING) * 2, 
-            .y = 150 + (BUTTON_SIZE + PADDING) * 3, 
-            .w = BUTTON_SIZE, 
-            .h = BUTTON_SIZE 
-        }, .text = "=", .btn_type = .operator },
-        .{ .rect = .{ 
-            .x = MARGIN + (BUTTON_SIZE + PADDING) * 3, 
-            .y = 150 + (BUTTON_SIZE + PADDING) * 3, 
-            .w = BUTTON_SIZE, 
-            .h = BUTTON_SIZE 
-        }, .text = "+", .btn_type = .operator },
+        .{ .rect = .{ .x = MARGIN, .y = 150 + (BUTTON_SIZE + PADDING) * 3, .w = BUTTON_SIZE, .h = BUTTON_SIZE }, .text = "0", .btn_type = .number },
+        .{ .rect = .{ .x = MARGIN + BUTTON_SIZE + PADDING, .y = 150 + (BUTTON_SIZE + PADDING) * 3, .w = BUTTON_SIZE, .h = BUTTON_SIZE }, .text = "C", .btn_type = .operator },
+        .{ .rect = .{ .x = MARGIN + (BUTTON_SIZE + PADDING) * 2, .y = 150 + (BUTTON_SIZE + PADDING) * 3, .w = BUTTON_SIZE, .h = BUTTON_SIZE }, .text = "=", .btn_type = .operator },
+        .{ .rect = .{ .x = MARGIN + (BUTTON_SIZE + PADDING) * 3, .y = 150 + (BUTTON_SIZE + PADDING) * 3, .w = BUTTON_SIZE, .h = BUTTON_SIZE }, .text = "+", .btn_type = .operator },
 
-        .{ .rect = .{ 
-            .x = WINDOW_WIDTH - MARGIN - 80, 
-            .y = MARGIN, 
-            .w = 90, 
-            .h = 45 
-        }, .text = "Theme", .btn_type = .theme },
+        .{ .rect = .{ .x = WINDOW_WIDTH - MARGIN - 80, .y = MARGIN, .w = 90, .h = 45 }, .text = "Theme", .btn_type = .theme },
     };
 
     var display = [_]u8{0} ** 16;
@@ -318,19 +237,14 @@ fn handleButtonPress(key: u8, display: []u8, display_len: *usize, first_operand:
 
 fn renderText(renderer: *c.SDL_Renderer, font: *c.TTF_Font, text: []const u8, x: c_int, y: c_int, theme: Theme) void {
     if (text.len == 0) return;
-    
+
     const surface = c.TTF_RenderText_Blended(font, text.ptr, theme.text) orelse return;
     defer c.SDL_FreeSurface(surface);
 
     const texture = c.SDL_CreateTextureFromSurface(renderer, surface) orelse return;
     defer c.SDL_DestroyTexture(texture);
 
-    var text_rect = c.SDL_Rect{ 
-        .x = x, 
-        .y = y, 
-        .w = surface.*.w, 
-        .h = surface.*.h 
-    };
+    var text_rect = c.SDL_Rect{ .x = x, .y = y, .w = surface.*.w, .h = surface.*.h };
     _ = c.SDL_RenderCopy(renderer, texture, null, &text_rect);
 }
 
@@ -348,6 +262,6 @@ fn renderButton(renderer: *c.SDL_Renderer, font: *c.TTF_Font, button: Button, th
     const padding: c_int = if (button.btn_type == .theme) 5 else 0;
     const text_x = button.rect.x + padding + @divFloor(button.rect.w - w - (padding * 2), 2);
     const text_y = button.rect.y + padding + @divFloor(button.rect.h - h - (padding * 2), 2);
-    
+
     renderText(renderer, font, button.text, text_x, text_y, theme);
 }
