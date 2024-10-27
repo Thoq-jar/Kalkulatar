@@ -1,0 +1,5 @@
+#!/bin/bash
+
+rm -rf zig-out/bin
+zig build
+./zig-out/bin/calculator

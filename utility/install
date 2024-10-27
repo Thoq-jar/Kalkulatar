@@ -1,0 +1,4 @@
+#!/bin/bash
+
+zig build --release=safe
+sudo cp zig-out/bin/calculator /usr/local/bin/calculator
